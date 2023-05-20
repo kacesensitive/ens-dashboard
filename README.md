@@ -1,34 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![ENS Dashboard](ens.png)
 
-## Getting Started
+# Twitch Chat Analytics Dashboard
 
-First, run the development server:
+The ENS Dashboard is a web application that allows ENS viewers and cast to analyze chat data from Twitch VODs. By visualizing chat activity, top chatters, emote usage, and other metrics, this dashboard provides valuable insights into the engagement and dynamics of Twitch chat.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The Twitch Chat Analytics Dashboard offers the following features:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Top 10 Chatters:** Displays the top 10 users who have sent the most chat messages, excluding StreamElements.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Unique Chatters:** Shows the number of unique chatters in the analyzed chat data.
 
-## Learn More
+- **Total Messages:** Presents the total number of chat messages in the analyzed data.
 
-To learn more about Next.js, take a look at the following resources:
+- **Top 5 Emotes:** Highlights the top 5 most frequently used emotes in the chat.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Word Frequency:** Provides insights into the frequency of specific words used in the chat.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Average Chats per Minute:** Calculates the average number of chats per minute in the analyzed chat data.
 
-## Deploy on Vercel
+- **Cast Mentions:** Shows the leaderboard of the most mentioned cast members' names in the chat.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Chats Over Time:** Visualizes the chat activity over time using a line chart.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Chats in Last 10 Episodes:** Displays a bar chart showing the chat activity for the last 10 episodes.
+
+## Technologies Used
+
+The Twitch Chat Analytics Dashboard is built using the following technologies:
+
+- **TypeScript**: A typed superset of JavaScript that brings static typing to the language. TypeScript enhances code quality, autocompletion, and provides better documentation.
+
+- **React**: A popular JavaScript library for building user interfaces. React provides a component-based architecture that enables efficient and reusable UI components.
+
+- **Recharts**: A powerful charting library for React. Recharts offers various chart types and customizable options to create visually appealing and interactive charts.
+
+## Usage
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Add your Twitch API credentials (client secret and client ID) to the appropriate variables in the code.
+4. Run the application: `npm start`
+5. Access the dashboard in your browser at `http://localhost:3000`
+
+## Future Enhancements
+
+The ENS Dashboard is an evolving project, and there are several potential areas for future enhancements, including:
+
+- Real-time Chat Analytics
+- Sentiment Analysis
+- Interactive Chat Analysis
+- User Authentication
+- Exporting Analytics
