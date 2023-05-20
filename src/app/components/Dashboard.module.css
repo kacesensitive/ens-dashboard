@@ -44,3 +44,40 @@
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
 }
+
+.loading {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 3s ease-in-out;
+}
+
+.loading-complete {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 3s ease-out, visibility 3s ease-out;
+}
+
+.loading h1 {
+  font-size: 24px;
+  text-align: center;
+  color: #ffd000;
+  text-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red, 0 0 80px red;
+  animation: glowing 2s infinite;
+}
+
+@keyframes glowing {
+  0% {
+    text-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red, 0 0 80px red;
+  }
+  50% {
+    text-shadow: 0 0 10px rgb(255, 98, 0), 0 0 20px rgb(255, 98, 0),
+      0 0 40px rgb(255, 98, 0), 0 0 80px rgb(255, 98, 0);
+  }
+  100% {
+    text-shadow: 0 0 10px red, 0 0 20px red, 0 0 40px red, 0 0 80px red;
+  }
+}

@@ -236,6 +236,8 @@ const Dashboard = () => {
   const [data, setData] = useState<Data[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<Data | null>(null);
   const first10Vods = data.slice(0, 9).reverse();
+  const [loading, setLoading] = useState(true);
+  const [isLoadingComplete, setIsLoadingComplete] = useState(false);
 
   // Function to process your data
   const processData = (data: any) => {
@@ -341,7 +343,12 @@ const Dashboard = () => {
       .then((myData: Data[]) => {
         setData(myData);
         setSelectedVideo(myData[0]);
-        console.log(myData);
+      })
+      .finally(() => {
+        setLoading(false);
+        setTimeout(() => {
+          setIsLoadingComplete(true);
+        }, 10000);
       });
   }, []);
 
@@ -353,133 +360,157 @@ const Dashboard = () => {
 
   return (
     <div>
-      <select
-        style={{
-          width: "100%",
-        }}
-        onChange={handleVideoChange}
-      >
-        {data.map((d: any) => {
-          console.log(first10Vods);
-          return (
-            <option key={d.video.id} value={d.video.id}>
-              {d.video.created_at + " - " + d.video.title}
-            </option>
-          );
-        })}
-      </select>
-      <div className={styles.gridc}>
-        {selectedVideo && (
-          <>
-            <Leaderboard
-              className="leaderboard"
-              players={top10ChattersByMessageCount(selectedVideo.comments).map(
-                (chatter, index) => ({
-                  rank: index + 1,
-                  name: chatter.name,
-                  score: chatter.count,
-                })
-              )}
-              title="Top 10 Chatters"
-            />
-            <BigNumber
-              className="bigNumber"
-              title="Unique Chatters"
-              number={numberOfUniqueChatters(selectedVideo.comments)}
-            />
-            <BigNumber
-              className="bigNumber"
-              title="Total Messages"
-              number={numberOfMessages(selectedVideo.comments)}
-            />
-            <Leaderboard
-              className="leaderboard"
-              players={top5Emotes(selectedVideo.comments).map(
-                (emote, index) => ({
-                  rank: index + 1,
-                  name: emote.name,
-                  score: emote.count,
-                  imageUrl: `https://static-cdn.jtvnw.net/emoticons/v2/${emote.name}/default/dark/1.0`,
-                })
-              )}
-              title="Top 5 Emotes"
-            />
+      <div>
+        {loading && !isLoadingComplete ? (
+          <div
+            className={`${
+              isLoadingComplete ? styles["loading-complete"] : styles.loading
+            }`}
+            aria-hidden={isLoadingComplete}
+          >
+            <h1>Loading...</h1>
+          </div>
+        ) : (
+          <div>
+            <select
+              style={{
+                width: "100%",
+              }}
+              onChange={handleVideoChange}
+            >
+              {data.map((d: any) => {
+                console.log(first10Vods);
+                return (
+                  <option key={d.video.id} value={d.video.id}>
+                    {d.video.created_at + " - " + d.video.title}
+                  </option>
+                );
+              })}
+            </select>
+            <div className={styles.gridc}>
+              {selectedVideo && (
+                <>
+                  <Leaderboard
+                    className="leaderboard"
+                    players={top10ChattersByMessageCount(
+                      selectedVideo.comments
+                    ).map((chatter, index) => ({
+                      rank: index + 1,
+                      name: chatter.name,
+                      score: chatter.count,
+                    }))}
+                    title="Top 10 Chatters"
+                  />
+                  <BigNumber
+                    className="bigNumber"
+                    title="Unique Chatters"
+                    number={numberOfUniqueChatters(selectedVideo.comments)}
+                  />
+                  <BigNumber
+                    className="bigNumber"
+                    title="Total Messages"
+                    number={numberOfMessages(selectedVideo.comments)}
+                  />
+                  <Leaderboard
+                    className="leaderboard"
+                    players={top5Emotes(selectedVideo.comments).map(
+                      (emote, index) => ({
+                        rank: index + 1,
+                        name: emote.name,
+                        score: emote.count,
+                        imageUrl: `https://static-cdn.jtvnw.net/emoticons/v2/${emote.name}/default/dark/1.0`,
+                      })
+                    )}
+                    title="Top 5 Emotes"
+                  />
 
-            <VersusNumber
-              className="versus"
-              title="# of Votes"
-              titleOne="1"
-              titleTwo="2"
-              numberOne={`${wordFrequencyByWord(selectedVideo.comments, "1")}`}
-              numberTwo={`${wordFrequencyByWord(selectedVideo.comments, "2")}`}
-            />
-            <BigNumber
-              className="bigNumber"
-              title="Chats per Minute"
-              number={averageChatsPerMinute(selectedVideo.comments).toFixed(2)}
-            />
-            <Leaderboard
-              className="leaderboard"
-              players={leaderboardDataForTimesCertainNamesMentioned(
-                selectedVideo.comments,
-                ["rocky", "jake", "grant", "chris", "gus"]
-              ).map((name, index) => ({
-                rank: index + 1,
-                name: name.name,
-                score: name.count,
-              }))}
-              title="Cast Mentions"
-            />
-          </>
+                  <VersusNumber
+                    className="versus"
+                    title="# of Votes"
+                    titleOne="1"
+                    titleTwo="2"
+                    numberOne={`${wordFrequencyByWord(
+                      selectedVideo.comments,
+                      "1"
+                    )}`}
+                    numberTwo={`${wordFrequencyByWord(
+                      selectedVideo.comments,
+                      "2"
+                    )}`}
+                  />
+                  <BigNumber
+                    className="bigNumber"
+                    title="Chats per Minute"
+                    number={averageChatsPerMinute(
+                      selectedVideo.comments
+                    ).toFixed(2)}
+                  />
+                  <Leaderboard
+                    className="leaderboard"
+                    players={leaderboardDataForTimesCertainNamesMentioned(
+                      selectedVideo.comments,
+                      ["rocky", "jake", "grant", "chris", "gus"]
+                    ).map((name, index) => ({
+                      rank: index + 1,
+                      name: name.name,
+                      score: name.count,
+                    }))}
+                    title="Cast Mentions"
+                  />
+                </>
+              )}
+            </div>
+            <div className={styles.chartContainer}>
+              <h2 className={styles.chartHeading}>Chats Over Time</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <LineChart width={1000} height={400} data={vodChatMessages}>
+                  <Line
+                    type="monotone"
+                    dataKey="totalChatMessages"
+                    stroke="#FFC203"
+                  />
+                  <XAxis dataKey="date" stroke="#ffd000" />
+                  <YAxis stroke="#ffd000" />
+                  <Tooltip
+                    contentStyle={{
+                      color: "white",
+                      backgroundColor: "black",
+                      stroke: "yellow",
+                    }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+              <h2 className={styles.chartHeading}>Chats In Last 10 Episodes</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart
+                  style={{
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                  }}
+                  width={1000}
+                  height={600}
+                  data={processedData}
+                >
+                  <XAxis
+                    stroke="#ffd000"
+                    dataKey="name"
+                    tick={renderCustomAxisTick}
+                  />
+                  <YAxis stroke="#ffd000" />
+                  <Bar
+                    dataKey="count"
+                    barSize={30}
+                    fill="#ffd000"
+                    stroke="#ffd000"
+                    label={renderCustomBarLabel}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         )}
       </div>
-      <div className={styles.chartContainer}>
-        <h2 className={styles.chartHeading}>Chats Over Time</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart width={1000} height={400} data={vodChatMessages}>
-            <Line
-              type="monotone"
-              dataKey="totalChatMessages"
-              stroke="#FFC203"
-            />
-            <XAxis dataKey="date" stroke="#ffd000" />
-            <YAxis stroke="#ffd000" />
-            <Tooltip
-              contentStyle={{
-                color: "white",
-                backgroundColor: "black",
-                stroke: "yellow",
-              }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-        <h2 className={styles.chartHeading}>Chats In Last 10 Episodes</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart
-            style={{
-              marginTop: "20px",
-              marginBottom: "20px",
-            }}
-            width={1000}
-            height={600}
-            data={processedData}
-          >
-            <XAxis
-              stroke="#ffd000"
-              dataKey="name"
-              tick={renderCustomAxisTick}
-            />
-            <YAxis stroke="#ffd000" />
-            <Bar
-              dataKey="count"
-              barSize={30}
-              fill="#ffd000"
-              stroke="#ffd000"
-              label={renderCustomBarLabel}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+      );
     </div>
   );
 };
