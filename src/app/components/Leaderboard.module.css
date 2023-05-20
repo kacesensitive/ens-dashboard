@@ -1,0 +1,41 @@
+.container {
+  background: linear-gradient(to right, #ff8c00, #b62400);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: #000 0px 0px 10px;
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.title {
+  color: #ffd000;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  stroke: #000;
+  stroke-width: 3px;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.leaderboard {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: #000 0px 0px 10px;
+}
+
+.leaderboard th,
+.leaderboard td {
+  color: #ffff00;
+  padding: 10px;
+  border: 1px solid #ffa500;
+  text-align: center;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.rank {
+  color: #fefefe;
+}

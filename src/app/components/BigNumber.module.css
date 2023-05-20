@@ -1,0 +1,29 @@
+.container {
+  background: linear-gradient(to right, #ff8c00, #b62400);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: #000 0px 0px 10px;
+  text-align: center;
+  grid-column: span 1;
+  grid-row: span 1;
+  color: #ffff00;
+}
+
+.title {
+  color: #ffd000;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  stroke: #000;
+  stroke-width: 3px;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.number {
+  font-size: 52px;
+  font-weight: bold;
+  stroke: #000;
+  stroke-width: 3px;
+  text-shadow: #000 0px 0px 10px;
+}

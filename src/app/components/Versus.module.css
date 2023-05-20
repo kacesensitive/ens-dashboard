@@ -1,0 +1,47 @@
+.versusContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to right, #ff8c00, #b62400);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: #000 0px 0px 10px;
+  grid-column: span 2;
+  grid-row: span 1;
+  color: #ffff00;
+}
+
+.tLayout {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.title {
+  color: #ffd000;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  stroke: #000;
+  stroke-width: 3px;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.number {
+  font-size: 72px;
+  font-weight: bold;
+  stroke: #000;
+  stroke-width: 3px;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.versus {
+  align-self: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.numberContainer {
+  text-align: center;
+}
